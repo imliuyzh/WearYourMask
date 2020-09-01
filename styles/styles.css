@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+}
+
+#github-icon {
+  position: absolute;
+  left: 3%;
+  top: 92%;
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  transition: all 0.3s;
+}
+
+#github-icon:hover {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+#content-container {
+  margin: 0;
+  padding: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  min-width: 450px;
+  height: 80vh;
+  min-height: 450px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 3px 3px 0px rgba(0, 0, 0, 0.14), 0px 3px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 20px;
+}
+
+#image-upload-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 100%;
+  text-align: center;
+}
+
+#upload-prompt {
+  display: none;
+}
+
+#image-upload-section h2,
+#image-upload-section p {
+  font-family: "Open Sans", sans-serif;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#image-upload-section h2 {
+  font-weight: bold;
+}
+
+#image-upload-section p {
+  font-weight: 300;
+  margin: 6px 18px;
+  text-align: center;
+  line-height: 24px;
+}
+
+#image-upload-icon {
+  font-size: 128px;
+  color: rgba(0, 0, 0, 0.5);
+}
