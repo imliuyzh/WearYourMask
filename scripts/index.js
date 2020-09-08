@@ -5,11 +5,22 @@ window.onload = async function () {
   let imageUploadSection = document.querySelector("#image-upload-section");
   imageUploadSection.addEventListener("click", () => document.querySelector("#upload-prompt").click());
   imageUploadSection.addEventListener("change", async (event) => {
-    console.log(event);
-    let tfTestImage = tf.browser.fromPixels(testImage);
-    let logits = mobilenetModule.infer(tfTestImage, 'conv_preds');
-    let prediction = await classifier.predictClass(logits);
-    console.log(prediction);
+    let fileReader = new FileReader();
+    fileReader.onload = function() {
+      let temp = new Image();
+      temp.onload = async function() {
+        let testImage = document.createElement('img');
+        testImage.setAttribute('width', temp.width);
+        testImage.setAttribute('height', temp.height);
+        testImage.src = fileReader.result;
+        testImage.setAttribute('id', 'selected-image');
+        testImage.style.display = 'None';
+        document.querySelector('body').appendChild(testImage);
+        await displayResult(mobileNetModule, classifier);
+      };
+      temp.src = fileReader.result;
+    };
+    fileReader.readAsDataURL(event.target.files[0]);
   });
 };
 
@@ -42,4 +53,26 @@ function addImages() {
     noMaskImages.push(noMaskImage);
   }
   return [maskImages, noMaskImages];
+}
+
+async function displayResult(mobileNetModule, classifier) {
+  let prediction = await classifier.predictClass(mobileNetModule.infer(tf.browser.fromPixels(document.querySelector('#selected-image')), 'conv_preds'));
+  if (prediction.label === '0') {
+    let alertContainer = document.createElement('div');
+    alertContainer.classList.add('alert');
+    alertContainer.style.backgroundColor = '#F44336';
+    alertContainer.innerText = `Failed to Detect a Mask. Please Wear it! (Press this notification to close)`;
+    alertContainer.addEventListener('click', event => document.querySelector('body').removeChild(event.srcElement));
+    document.querySelector('body').appendChild(alertContainer);
+  } else {
+    let alertContainer = document.createElement('div');
+    alertContainer.classList.add('alert');
+    alertContainer.style.backgroundColor = '#4CAF50';
+    alertContainer.innerText = `Mask Detected. Please Keep Wearing it! (Press this notification to close)`;
+    alertContainer.addEventListener('click', event => document.querySelector('body').removeChild(event.srcElement));
+    document.querySelector('body').appendChild(alertContainer);
+  }
+
+  let selectedImage = document.querySelector('#selected-image');
+  selectedImage.parentNode.removeChild(selectedImage);
 }
