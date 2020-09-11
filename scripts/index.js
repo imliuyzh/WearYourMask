@@ -38,7 +38,7 @@ async function trainModel(mobileNetModule) {
 
 function addImages() {
   let maskImages = [], noMaskImages = [];
-  for (let counter = 1; counter <= 20; ++counter) {
+  for (let counter = 1; counter <= 10; ++counter) {
     let maskImage = document.createElement("img"),
         noMaskImage = document.createElement("img");
 
