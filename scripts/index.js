@@ -1,22 +1,23 @@
-window.onload = async function () {
-  let mobileNetModule = await mobilenet.load({ version: 2, alpha: 1 }),
-  classifier = await trainModel(mobileNetModule);
+import { detect, loadModel } from "./detection.js";
 
+/**
+ * Register listeners for the image upload section
+ * and initialize the required ML model.
+ */
+window.onload = async function () {
+  await loadModel();
   let imageUploadSection = document.querySelector("#image-upload-section");
   imageUploadSection.addEventListener("click", () => document.querySelector("#upload-prompt").click());
-  imageUploadSection.addEventListener("change", async (event) => {
+  imageUploadSection.addEventListener("change", event => {
     let fileReader = new FileReader();
     fileReader.onload = function() {
       let temp = new Image();
-      temp.onload = async function() {
+      temp.onload = function() {
         let testImage = document.createElement('img');
         testImage.setAttribute('width', temp.width);
         testImage.setAttribute('height', temp.height);
         testImage.src = fileReader.result;
-        testImage.setAttribute('id', 'selected-image');
-        testImage.style.display = 'None';
-        document.querySelector('body').appendChild(testImage);
-        await displayResult(mobileNetModule, classifier);
+        displayResult(testImage);
       };
       temp.src = fileReader.result;
     };
@@ -24,55 +25,36 @@ window.onload = async function () {
   });
 };
 
-async function trainModel(mobileNetModule) {
-  let classifier = knnClassifier.create();
-  let [maskImages, noMaskImages] = addImages();
-  maskImages.forEach(image =>
-    classifier.addExample(mobileNetModule.infer(tf.browser.fromPixels(image), "conv_preds"), 1)
-  );
-  noMaskImages.forEach(image => 
-    classifier.addExample(mobileNetModule.infer(tf.browser.fromPixels(image), "conv_preds"), 0)
-  );
-  return classifier;
+/**
+ * Show the message depending on the existence of users' mask.
+ * @param {Image} testImage An image file that the user uploads
+ */
+function displayResult(testImage) {
+  detect(testImage)
+    .then(result => (result[0][1] === 1) ? showAlert() : confirmDetection())
+    .catch(() => showAlert());
 }
 
-function addImages() {
-  let maskImages = [], noMaskImages = [];
-  for (let counter = 1; counter <= 10; ++counter) {
-    let maskImage = document.createElement("img"),
-        noMaskImage = document.createElement("img");
-
-    maskImage.setAttribute("src", `assets/training-samples/mask/${counter}.jpg`);
-    maskImage.setAttribute("width", "100%");
-    maskImage.setAttribute("height", "100%");
-    maskImages.push(maskImage);
-
-    noMaskImage.setAttribute("src", `assets/training-samples/no-mask/${counter}.jpg`);
-    noMaskImage.setAttribute("width", "100%");
-    noMaskImage.setAttribute("height", "100%");
-    noMaskImages.push(noMaskImage);
-  }
-  return [maskImages, noMaskImages];
+/**
+ * Display an alarm message in red when the mask is not detected.
+ */
+function showAlert() {
+  let alertContainer = document.createElement('div');
+  alertContainer.classList.add('alert');
+  alertContainer.style.backgroundColor = '#F44336';
+  alertContainer.innerText = `Failed to Detect a Mask. Please Wear it! (Press this notification to close)`;
+  alertContainer.addEventListener('click', event => document.querySelector('body').removeChild(event.target));
+  document.querySelector('body').appendChild(alertContainer);
 }
 
-async function displayResult(mobileNetModule, classifier) {
-  let prediction = await classifier.predictClass(mobileNetModule.infer(tf.browser.fromPixels(document.querySelector('#selected-image')), 'conv_preds'));
-  if (prediction.label === '0') {
-    let alertContainer = document.createElement('div');
-    alertContainer.classList.add('alert');
-    alertContainer.style.backgroundColor = '#F44336';
-    alertContainer.innerText = `Failed to Detect a Mask. Please Wear it! (Press this notification to close)`;
-    alertContainer.addEventListener('click', event => document.querySelector('body').removeChild(event.srcElement));
-    document.querySelector('body').appendChild(alertContainer);
-  } else {
-    let alertContainer = document.createElement('div');
-    alertContainer.classList.add('alert');
-    alertContainer.style.backgroundColor = '#4CAF50';
-    alertContainer.innerText = `Mask Detected. Please Keep Wearing it! (Press this notification to close)`;
-    alertContainer.addEventListener('click', event => document.querySelector('body').removeChild(event.srcElement));
-    document.querySelector('body').appendChild(alertContainer);
-  }
-
-  let selectedImage = document.querySelector('#selected-image');
-  selectedImage.parentNode.removeChild(selectedImage);
+/**
+ * Display a message in green when the mask is detected.
+ */
+function confirmDetection() {
+  let alertContainer = document.createElement('div');
+  alertContainer.classList.add('alert');
+  alertContainer.style.backgroundColor = '#4CAF50';
+  alertContainer.innerText = `Mask Detected. Please Keep Wearing it! (Press this notification to close)`;
+  alertContainer.addEventListener('click', event => document.querySelector('body').removeChild(event.target));
+  document.querySelector('body').appendChild(alertContainer);
 }
