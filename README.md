@@ -9,7 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 3. Navigate to the downloaded/cloned repository in the command line
 4. Type ```python3 -m http.server``` or ```python -m http.server``` depending on your operating system
 5. Copy the URL in the command line to the browser (usually ```http://0.0.0.0:8000```)
-6. Press ```Ctrl+C``` in the command line if you want to close the application
+6. Press ```Ctrl+C``` in the command line when you are done using the application
 
 ### Built With
 - HTML
