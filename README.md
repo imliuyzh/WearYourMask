@@ -11,10 +11,11 @@ These instructions will get you a copy of the project up and running on your loc
 5. Copy the URL in the command line to the browser (usually ```http://0.0.0.0:8000```)
 6. Press ```Ctrl+C``` in the command line if you want to close the application
 
-## Built With
+### Built With
 - HTML
 - CSS
 - JavaScript
 - TensorFlow.js
 
 ## Acknowledgments
+Thanks to AIZOOTech for the [detection module](https://github.com/AIZOOTech/mask-detection-web-demo). Without this repository, I cannot complete this project.
