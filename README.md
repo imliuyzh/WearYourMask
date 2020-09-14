@@ -17,5 +17,8 @@ These instructions will get you a copy of the project up and running on your loc
 - JavaScript
 - TensorFlow.js
 
+## Versioning
+I used only Git bash for version management.
+
 ## Acknowledgments
 Thanks to AIZOOTech for the [detection module](https://github.com/AIZOOTech/mask-detection-web-demo). Without this repository, I cannot complete this project.
