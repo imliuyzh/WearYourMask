@@ -42,7 +42,7 @@ function showAlert() {
   let alertContainer = document.createElement('div');
   alertContainer.classList.add('alert');
   alertContainer.style.backgroundColor = '#F44336';
-  alertContainer.innerText = `Failed to Detect a Mask. Please Wear it! (Press this notification to close)`;
+  alertContainer.innerText = `Failed to Detect a Mask. Please Wear it! (Press this to Dismiss)`;
   alertContainer.addEventListener('click', event => document.querySelector('body').removeChild(event.target));
   document.querySelector('body').appendChild(alertContainer);
 }
@@ -54,7 +54,7 @@ function confirmDetection() {
   let alertContainer = document.createElement('div');
   alertContainer.classList.add('alert');
   alertContainer.style.backgroundColor = '#4CAF50';
-  alertContainer.innerText = `Mask Detected. Please Keep Wearing it! (Press this notification to close)`;
+  alertContainer.innerText = `Mask Detected. Please Keep Wearing it! (Press this to Dismiss)`;
   alertContainer.addEventListener('click', event => document.querySelector('body').removeChild(event.target));
   document.querySelector('body').appendChild(alertContainer);
 }
