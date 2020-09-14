@@ -1,5 +1,5 @@
 # [WearYourMask!](https://imliuyzh.github.io/WearYourMask/)
-WearYourMask! is a web application that checks the person on the selected image if he/she wear his/her mask. In the end, a notification will show up telling the users about the result. Note that the result may not be 100% accurate.
+A web application that checks the person on the selected image if he/she wear his/her mask. In the end, a notification will show up telling the users about the result. Note that the result may not be 100% accurate.
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. Alternatively, you can always use the link above to run the application.
