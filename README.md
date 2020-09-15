@@ -1,6 +1,9 @@
 # [WearYourMask!](https://imliuyzh.github.io/WearYourMask/)
 A web application that checks the person on the selected image if he/she wear his/her mask. In the end, a notification will show up telling the users about the result. Note that the result may not be 100% accurate.
 
+## A Note on the Application
+Due to the TensorFlow.js dependency, WearYourMask! requires **WebGL** supports (https://appuals.com/fix-webgl-is-not-supported/). If the application still does not work even after following the article, then you may want to consider to get a new graphic card or simply upgrade your device.
+
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. Alternatively, you can always use the link above to run the application.
 
