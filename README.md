@@ -24,4 +24,4 @@ These instructions will get you a copy of the project up and running on your loc
 I used only Git bash for version management.
 
 ## Acknowledgments
-Thanks to AIZOOTech for the [detection module](https://github.com/AIZOOTech/mask-detection-web-demo). Without this repository, I cannot complete this project.
+Thanks to AIZOOTech for the [detection module](https://github.com/AIZOOTech/mask-detection-web-demo). The code is crucial for completing this project. Also, I want to express my gratitude to my fellow interns in Ardent Academy for their assistance. Finally, huge thanks to Dr. Li for providing this amazing opportunity to let me work in Ardent.
