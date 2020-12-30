@@ -2,9 +2,7 @@
 A web application that checks the person on the selected image if he/she wear his/her mask. In the end, a notification will show up telling the users about the result.
 
 ### Note
-Due to the TensorFlow.js dependency, WearYourMask! **REQUIRES** WebGL supports (https://appuals.com/fix-webgl-is-not-supported/). If the application still does not work even after following the article, then you may want to consider to get a new graphic card or simply upgrade your device.
-
-On a side note, the result may not be 100% accurate. This project is served for demonstration purposes only.
+The result may not be 100% accurate. This project is served for demonstration purposes only.
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. Alternatively, you can always use the link above to run the application.
@@ -20,10 +18,10 @@ These instructions will get you a copy of the project up and running on your loc
 - HTML
 - CSS
 - JavaScript
-- TensorFlow.js
+    - TensorFlow.js
 
 ## Versioning
 I used only Git bash for version management.
 
 ## Acknowledgments
-Thanks to AIZOOTech for the [detection module](https://github.com/AIZOOTech/mask-detection-web-demo). The code is crucial for completing this project. Also, I want to express my gratitude to my fellow interns in Ardent Academy for their assistance. Finally, huge thanks to Dr. Li for providing this amazing opportunity to let me work in Ardent.
+Thanks to AIZOOTech for the [detection module](https://github.com/AIZOOTech/mask-detection-web-demo). The code is crucial for completing this project.
