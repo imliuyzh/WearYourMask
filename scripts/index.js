@@ -4,26 +4,28 @@ import { detect, loadModel } from "./detection.js";
  * Register listeners for the image upload section
  * and initialize the required ML model.
  */
-window.onload = async function() {
-  await loadModel();
-  let imageUploadSection = document.querySelector("#image-upload-section");
-  imageUploadSection.addEventListener("click", () => document.querySelector("#upload-prompt").click());
-  imageUploadSection.addEventListener("change", event => {
-    let fileReader = new FileReader();
-    fileReader.onload = function() {
-      let temp = new Image();
-      temp.onload = function() {
-        let testImage = document.createElement('img');
-        testImage.setAttribute('width', temp.width);
-        testImage.setAttribute('height', temp.height);
-        testImage.src = fileReader.result;
-        displayResult(testImage);
+function main() {
+  document.addEventListener("DOMContentLoaded", async function() {
+    await loadModel();
+    let imageUploadSection = document.querySelector("#image-upload-section");
+    imageUploadSection.addEventListener("click", () => document.querySelector("#upload-prompt").click());
+    imageUploadSection.addEventListener("change", event => {
+      let fileReader = new FileReader();
+      fileReader.onload = function() {
+        let temp = new Image();
+        temp.onload = function() {
+          let testImage = document.createElement('img');
+          testImage.setAttribute('width', temp.width);
+          testImage.setAttribute('height', temp.height);
+          testImage.src = fileReader.result;
+          displayResult(testImage);
+        };
+        temp.src = fileReader.result;
       };
-      temp.src = fileReader.result;
-    };
-    fileReader.readAsDataURL(event.target.files[0]);
+      fileReader.readAsDataURL(event.target.files[0]);
+    });
   });
-};
+}
 
 /**
  * Show the message depending on the existence of users' mask.
@@ -58,3 +60,5 @@ function confirmDetection() {
   alertContainer.addEventListener('click', event => document.querySelector('body').removeChild(event.target));
   document.querySelector('body').appendChild(alertContainer);
 }
+
+main();
